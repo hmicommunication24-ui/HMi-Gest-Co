@@ -587,11 +587,11 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
         <div class="section" id="sec-dashboard">
             <h3 class="section-title">🏠 Vue d'ensemble</h3>
             <div class="stats-grid" id="statsGrid"></div>
-            <div class="chart-container"><h4>📈 Évolution (7 jours)</h4><div class="chart-wrapper"><canvas id="chartParcels"></canvas></div></div>
+            <div class="chart-container"><h4> Évolution (7 jours)</h4><div class="chart-wrapper"><canvas id="chartParcels"></canvas></div></div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
                 <button class="btn btn-primary btn-lg" onclick="showSection('newParcel')">📦 Nouvel Envoi</button>
-                <button class="btn btn-success btn-lg" onclick="showSection('bordereaux')">🚌 Bordereaux</button>
-                <button class="btn btn-warning btn-lg" onclick="showSection('douane')"> Douane</button>
+                <button class="btn btn-success btn-lg" onclick="showSection('bordereaux')"> Bordereaux</button>
+                <button class="btn btn-warning btn-lg" onclick="showSection('douane')">🛃 Douane</button>
                 <button class="btn btn-info btn-lg" onclick="showSection('transactions')">💳 Transactions</button>
                 <button class="btn btn-outline btn-lg" onclick="showSection('tracking')">🔍 Suivi</button>
             </div>
@@ -606,7 +606,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
             <div class="form-group"><label>Ville destination *</label><select id="destCity" onchange="onDestCityChange()"><option value="">-- Choisir --</option></select></div>
             <div class="form-group"><label>Agence</label><select id="destAgency"></select></div>
             <div class="form-group"><label>Description *</label><input id="description"></div>
-            <div class="form-group"><label>📸 Photo *</label><div class="photo-zone" onclick="document.getElementById('parcelPhoto').click()"><div class="icon"></div><p id="photoLabel">Cliquez pour photo</p><input type="file" id="parcelPhoto" accept="image/*" capture="environment" style="display:none" onchange="previewParcelPhoto(this)"><img id="photoPreview" class="photo-preview hidden"></div></div>
+            <div class="form-group"><label>📸 Photo *</label><div class="photo-zone" onclick="document.getElementById('parcelPhoto').click()"><div class="icon">📷</div><p id="photoLabel">Cliquez pour photo</p><input type="file" id="parcelPhoto" accept="image/*" capture="environment" style="display:none" onchange="previewParcelPhoto(this)"><img id="photoPreview" class="photo-preview hidden"></div></div>
             <div class="form-group"><label>Poids (kg) *</label><input type="number" id="weightKg" step="0.1" oninput="calcPrice()"></div>
             <div class="form-group"><label>Valeur (FCFA) *</label><input type="number" id="declaredValue" value="0" oninput="calcPrice()"></div>
             <div class="form-group"><label><input type="checkbox" id="isInsured" onchange="calcPrice()"> 🛡️ Assurance</label></div>
@@ -624,7 +624,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
         </div>
 
         <div class="section" id="sec-bordereaux">
-            <h3 class="section-title"> Bordereaux</h3>
+            <h3 class="section-title">🚌 Bordereaux</h3>
             <button class="btn btn-primary" onclick="showSection('createBordereau')" style="margin-bottom:14px;">➕ Créer</button>
             <div id="bordereauxList"></div>
         </div>
@@ -636,7 +636,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
             <div class="form-group"><label>Chauffeur *</label><input id="bordDriver"></div>
             <div class="form-group"><label>Plaque *</label><input id="bordPlate"></div>
             <div class="form-group"><label>Date</label><input type="date" id="bordDate"></div>
-            <h4 style="margin:18px 0 10px; color:var(--primary);">📦 Colis</h4>
+            <h4 style="margin:18px 0 10px; color:var(--primary);"> Colis</h4>
             <div id="parcelsToLoad"><p style="text-align:center;color:var(--gray);padding:18px;">Sélectionnez destination</p></div>
             <div style="background:#f8f9fa;padding:14px;border-radius:10px;margin-top:14px;"><div style="display:flex;justify-content:space-between;"><span>Colis:</span><strong id="selectedCount">0</strong></div><div style="display:flex;justify-content:space-between;"><span>Poids:</span><strong id="totalWeight">0 kg</strong></div></div>
             <button class="btn btn-success" onclick="saveBordereau()" style="margin-top:14px;">✅ Créer & PDF</button>
@@ -665,7 +665,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
         </div>
 
         <div class="section" id="sec-reports">
-            <h3 class="section-title"> Rapports</h3>
+            <h3 class="section-title">📊 Rapports</h3>
             <div style="display:flex;gap:8px;margin-bottom:14px;"><button class="btn btn-sm btn-primary" onclick="generateReport('daily')">Journalier</button><button class="btn btn-sm btn-outline" onclick="generateReport('weekly')">Hebdo</button><button class="btn btn-sm btn-outline" onclick="generateReport('monthly')">Mensuel</button></div>
             <div id="reportContent"></div>
         </div>
@@ -679,19 +679,19 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
         <div class="section" id="sec-settings">
             <h3 class="section-title">⚙️ Paramètres de ma compagnie</h3>
             <div class="settings-card">
-                <h3>🗺️ Destinations (Routes)</h3>
+                <h3>️ Destinations (Routes)</h3>
                 <div id="routesList"></div>
                 <button class="btn btn-outline btn-sm" onclick="addRouteRow()">+ Ajouter une route</button>
                 <button class="btn btn-success btn-sm" onclick="saveRoutes()" style="margin-top:8px;">💾 Enregistrer</button>
             </div>
             <div class="settings-card">
-                <h3>️ Prix par Poids</h3>
+                <h3>⚖️ Prix par Poids</h3>
                 <div id="weightTiersList"></div>
                 <button class="btn btn-outline btn-sm" onclick="addWeightTierRow()">+ Ajouter une tranche</button>
                 <button class="btn btn-success btn-sm" onclick="saveWeightTiers()" style="margin-top:8px;">💾 Enregistrer</button>
             </div>
             <div class="settings-card">
-                <h3>️ Prix par Distance</h3>
+                <h3>🛣️ Prix par Distance</h3>
                 <div id="distanceTiersList"></div>
                 <button class="btn btn-outline btn-sm" onclick="addDistanceTierRow()">+ Ajouter une tranche</button>
                 <button class="btn btn-success btn-sm" onclick="saveDistanceTiers()" style="margin-top:8px;">💾 Enregistrer</button>
@@ -714,7 +714,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
     <div class="bottom-nav" id="bottomNav"></div>
 </div>
 
-<div class="modal" id="recuModal"><div class="modal-content"><h3 style="margin-bottom:14px;">🧾 Reçu</h3><div id="recuContent"></div><div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;"><button class="btn btn-success" onclick="downloadRecuPDF()" style="flex:1;min-width:110px;"> Reçu PDF</button><button class="btn btn-info" onclick="downloadTicketPDF()" style="flex:1;min-width:110px;">🖨️ Ticket</button><button class="btn btn-outline" onclick="closeRecuModal()" style="flex:1;min-width:110px;">Fermer</button></div></div></div>
+<div class="modal" id="recuModal"><div class="modal-content"><h3 style="margin-bottom:14px;">🧾 Reçu</h3><div id="recuContent"></div><div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;"><button class="btn btn-success" onclick="downloadRecuPDF()" style="flex:1;min-width:110px;">📄 Reçu PDF</button><button class="btn btn-info" onclick="downloadTicketPDF()" style="flex:1;min-width:110px;">🖨️ Ticket</button><button class="btn btn-outline" onclick="closeRecuModal()" style="flex:1;min-width:110px;">Fermer</button></div></div></div>
 <div class="modal" id="smsModal"><div class="modal-content"><h3 style="margin-bottom:14px;">📱 SMS</h3><div id="smsContent"></div><div style="display:flex;gap:8px;margin-top:18px;"><button class="btn btn-primary" onclick="simulateSendSMS()">Envoyer</button><button class="btn btn-outline" onclick="closeSmsModal()">Fermer</button></div></div></div>
 <div class="modal" id="ticketModal"><div class="modal-content"><h3 style="margin-bottom:14px;">🖨️ Ticket</h3><div id="ticketContent"></div><div style="display:flex;gap:8px;margin-top:18px;"><button class="btn btn-success" onclick="printTicket()">Imprimer</button><button class="btn btn-outline" onclick="closeTicketModal()">Fermer</button></div></div></div>
 <div class="modal" id="addCompanyModal"><div class="modal-content"><h3 style="margin-bottom:14px;">🏢 Nouvelle compagnie</h3><div class="form-group"><label>Nom</label><input id="newCompanyName"></div><div class="form-group"><label>Pays</label><input id="newCompanyCountry"></div><div class="form-group"><label>Téléphone de contact</label><input id="newCompanyPhone" placeholder="Ex: +228 70 00 00 00"></div><div class="form-group"><label>Plan</label><select id="newCompanyPlan"><option value="basic">Basic - 50 000 FCFA/mois</option><option value="pro">Pro - 100 000 FCFA/mois</option><option value="enterprise">Enterprise - 200 000 FCFA/mois</option></select></div><div style="display:flex;gap:8px;margin-top:18px;"><button class="btn btn-outline" onclick="closeAddCompanyModal()">Annuler</button><button class="btn btn-primary" onclick="saveCompany()">Enregistrer</button></div></div></div>
@@ -722,7 +722,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, collection, getDocs, addDoc, doc, setDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -747,6 +747,8 @@ let currentRecuParcel = null;
 let currentFilter = 'all';
 let transactionPeriod = 'today';
 let douanePeriod = 'today';
+let lastCacheTime = 0;
+const CACHE_DURATION = 30000;
 
 const roundPrice = v => Math.ceil(v / 100) * 100;
 const genCode = () => { let c=''; for(let i=0;i<6;i++) c+='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.floor(Math.random()*34)]; return c; };
@@ -757,12 +759,16 @@ const getPlanClass = p => p === 'basic' ? 'plan-basic' : p === 'pro' ? 'plan-pro
 window.addEventListener('load', () => {
     const savedSession = localStorage.getItem('hmi_session');
     if(savedSession) {
-        const session = JSON.parse(savedSession);
-        if(session.currentUser) {
-            currentUser = session.currentUser;
-            showApp();
-            if(currentUser.isSuperAdmin) loadSuperDashboard(); else loadDashboard();
-        }
+        try {
+            const session = JSON.parse(savedSession);
+            if(session.currentUser) {
+                currentUser = session.currentUser;
+                refreshCache(true).then(() => {
+                    showApp();
+                    if(currentUser.isSuperAdmin) loadSuperDashboard(); else loadDashboard();
+                });
+            }
+        } catch(e) { console.error(e); }
     }
 });
 
@@ -772,16 +778,26 @@ function saveSession() {
     }
 }
 
-async function refreshCache() {
+async function refreshCache(force = false) {
+    const now = Date.now();
+    if(!force && (now - lastCacheTime) < CACHE_DURATION && Cache.companies.length > 0) {
+        return;
+    }
+    
     const cols = ['companies','users','parcels','bordereaux','cities','agencies','routes','weight_tiers','distance_tiers','fee_settings'];
     for(const col of cols) {
-        const snap = await getDocs(collection(db, col));
-        Cache[col] = snap.docs.map(d => ({id:d.id,...d.data()}));
+        try {
+            const snap = await getDocs(collection(db, col));
+            Cache[col] = snap.docs.map(d => ({id:d.id,...d.data()}));
+        } catch(e) {
+            console.warn('Erreur chargement ' + col, e);
+        }
     }
+    lastCacheTime = now;
 }
 
 async function loadCompaniesInDropdown() {
-    await refreshCache();
+    await refreshCache(true);
     const select = document.getElementById('loginCompany');
     select.innerHTML = '<option value="">-- Sélectionner --</option>';
     select.innerHTML += '<option value="super">👑 SUPER ADMIN</option>';
@@ -803,7 +819,7 @@ window.login = async function() {
     
     try {
         await signInWithEmailAndPassword(auth, email, password);
-        await refreshCache();
+        await refreshCache(true);
         
         let user;
         if(companyId === 'super') {
@@ -813,10 +829,9 @@ window.login = async function() {
         }
         
         if(!user) {
-            const newUser = { role: companyId==='super'?'super_admin':'admin', first_name: phone.split('@')[0], last_name: '', phone, email, password, company_id: companyId==='super'?null:companyId, agency_id: companyId==='super'?null:'1' };
+            const newUser = { role: companyId==='super'?'super_admin':'admin', first_name: phone.split('@')[0], last_name: '', phone, email, company_id: companyId==='super'?null:companyId, agency_id: companyId==='super'?null:'1' };
             const ref = await addDoc(collection(db, 'users'), newUser);
             user = { id: ref.id, ...newUser };
-            await refreshCache();
         }
         
         currentUser = {...user, isSuperAdmin: companyId==='super'};
@@ -826,30 +841,9 @@ window.login = async function() {
         if(currentUser.isSuperAdmin) loadSuperDashboard(); else loadDashboard();
         
     } catch(e) {
-        if(e.code === 'auth/user-not-found' || e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential') {
-            try {
-                await createUserWithEmailAndPassword(auth, email, password);
-                await refreshCache();
-                let user = Cache.users.find(u => (u.phone === phone || u.email === email));
-                if(!user) {
-                    const newUser = { role: companyId==='super'?'super_admin':'admin', first_name: phone.split('@')[0], last_name: '', phone, email, password, company_id: companyId==='super'?null:companyId, agency_id: companyId==='super'?null:'1' };
-                    const ref = await addDoc(collection(db, 'users'), newUser);
-                    user = { id: ref.id, ...newUser };
-                    await refreshCache();
-                }
-                currentUser = {...user, isSuperAdmin: companyId==='super'};
-                currentUser.company_name = companyId==='super' ? 'HMi-Gest-Co Platform' : (Cache.companies.find(c=>c.id===companyId)?.name || 'Inconnu');
-                saveSession();
-                showApp();
-                if(currentUser.isSuperAdmin) loadSuperDashboard(); else loadDashboard();
-            } catch(e2) { 
-                console.error(e2); 
-                document.getElementById('loginError').style.display='block'; 
-            }
-        } else { 
-            console.error(e); 
-            document.getElementById('loginError').style.display='block'; 
-        }
+        console.error('Erreur connexion:', e);
+        document.getElementById('loginError').style.display='block';
+        document.getElementById('loginError').textContent = '❌ ' + (e.message || 'Identifiants incorrects');
     }
 };
 
@@ -872,7 +866,7 @@ window.logout = function() {
 function buildNav() {
     const nav = document.getElementById('bottomNav');
     if(currentUser.isSuperAdmin) {
-        nav.innerHTML = `<div class="bottom-nav-item active" onclick="showSection('superDashboard')"><div class="icon">👑</div>Global</div><div class="bottom-nav-item" onclick="showSection('companies')"><div class="icon"></div>Compagnies</div>`;
+        nav.innerHTML = `<div class="bottom-nav-item active" onclick="showSection('superDashboard')"><div class="icon">👑</div>Global</div><div class="bottom-nav-item" onclick="showSection('companies')"><div class="icon">🏢</div>Compagnies</div>`;
     } else {
         nav.innerHTML = `<div class="bottom-nav-item active" onclick="showSection('dashboard')"><div class="icon">🏠</div>Accueil</div><div class="bottom-nav-item" onclick="showSection('newParcel')"><div class="icon">📦</div>Envoi</div><div class="bottom-nav-item" onclick="showSection('parcelsList')"><div class="icon">📋</div>Colis</div><div class="bottom-nav-item" onclick="showSection('transactions')"><div class="icon">💰</div>Finance</div><div class="bottom-nav-item" onclick="showSection('settings')"><div class="icon">⚙️</div>Param.</div>`;
     }
@@ -883,7 +877,6 @@ window.showSection = function(name) {
     document.querySelectorAll('.bottom-nav-item').forEach(i=>i.classList.remove('active'));
     document.getElementById('sec-'+name)?.classList.add('active');
     
-    // Mettre à jour l'item actif dans la nav
     const navItems = document.querySelectorAll('.bottom-nav-item');
     if(name === 'dashboard') navItems[0]?.classList.add('active');
     else if(name === 'newParcel') navItems[1]?.classList.add('active');
@@ -920,9 +913,9 @@ async function loadSuperDashboard() {
     
     document.getElementById('superStats').innerHTML = `
         <div class="stat-card"><div class="label">🏢 Compagnies actives</div><div class="value">${Cache.companies.filter(c=>c.status==='active').length}/${Cache.companies.length}</div></div>
-        <div class="stat-card"><div class="label"> Total Colis</div><div class="value">${allParcels.length}</div><div class="sub">Auj: ${todayP.length}</div></div>
-        <div class="stat-card" style="background:linear-gradient(135deg, var(--accent) 0%, #f1c40f 100%);color:var(--primary)"><div class="label"> CA Global (colis)</div><div class="value">${roundPrice(totalRevenue).toLocaleString()} F</div></div>
-        <div class="stat-card" style="background:linear-gradient(135deg, var(--success) 0%, #229954 100%);color:white"><div class="label">💵 CA Forfaits/mois</div><div class="value">${totalPlanRevenue.toLocaleString()} F</div></div>
+        <div class="stat-card"><div class="label">📦 Total Colis</div><div class="value">${allParcels.length}</div><div class="sub">Auj: ${todayP.length}</div></div>
+        <div class="stat-card" style="background:linear-gradient(135deg, var(--accent) 0%, #f1c40f 100%);color:var(--primary)"><div class="label">💰 CA Global (colis)</div><div class="value">${roundPrice(totalRevenue).toLocaleString()} F</div></div>
+        <div class="stat-card" style="background:linear-gradient(135deg, var(--success) 0%, #229954 100%);color:white"><div class="label"> CA Forfaits/mois</div><div class="value">${totalPlanRevenue.toLocaleString()} F</div></div>
     `;
 
     let detailsHTML = '';
@@ -1028,7 +1021,7 @@ async function loadDashboard() {
     const weekP = parcels.filter(p=>new Date(p.created_at)>=weekAgo);
     
     document.getElementById('statsGrid').innerHTML = `
-        <div class="stat-card"><div class="label">📦 Aujourd'hui</div><div class="value">${todayP.length}</div><div class="sub">Total: ${parcels.length}</div></div>
+        <div class="stat-card"><div class="label"> Aujourd'hui</div><div class="value">${todayP.length}</div><div class="sub">Total: ${parcels.length}</div></div>
         <div class="stat-card"><div class="label">💰 Recettes</div><div class="value">${roundPrice(todayP.reduce((s,p)=>s+(p.total_price||0),0)).toLocaleString()} F</div><div class="sub">Semaine: ${roundPrice(weekP.reduce((s,p)=>s+(p.total_price||0),0)).toLocaleString()} F</div></div>
         <div class="stat-card"><div class="label">✅ Livrés</div><div class="value">${parcels.filter(p=>p.status==='delivered').length}</div></div>
         <div class="stat-card"><div class="label">🚚 Transit</div><div class="value">${parcels.filter(p=>p.status==='in_transit').length}</div></div>
@@ -1178,7 +1171,7 @@ window.saveRoutes = async function() {
     }
     
     alert('✅ Routes enregistrées !');
-    await refreshCache();
+    await refreshCache(true);
     loadSettings();
 };
 
@@ -1205,7 +1198,7 @@ window.saveWeightTiers = async function() {
     }
     
     alert('✅ Tranches de poids enregistrées !');
-    await refreshCache();
+    await refreshCache(true);
     loadSettings();
 };
 
@@ -1232,7 +1225,7 @@ window.saveDistanceTiers = async function() {
     }
     
     alert('✅ Tranches de distance enregistrées !');
-    await refreshCache();
+    await refreshCache(true);
     loadSettings();
 };
 
@@ -1254,7 +1247,7 @@ window.saveFeeSettings = async function() {
     }
     
     alert('✅ Frais enregistrés !');
-    await refreshCache();
+    await refreshCache(true);
     loadSettings();
 };
 
@@ -1290,7 +1283,7 @@ window.calcPrice = function() {
     const total = wPrice + dPrice + hFee + iFee + cFee;
     
     document.getElementById('priceSummary').innerHTML = `
-        <div style="display:flex;justify-content:space-between;padding:6px"><span> Poids</span><span>${wPrice.toLocaleString()} F</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px"><span>📦 Poids</span><span>${wPrice.toLocaleString()} F</span></div>
         <div style="display:flex;justify-content:space-between;padding:6px"><span>🛣️ Distance (${dist}km × ${pricePerKm}F/km)</span><span>${dPrice.toLocaleString()} F</span></div>
         ${hFee ? `<div style="display:flex;justify-content:space-between;padding:6px;color:#f39c12"><span>🔹 Gestion</span><span>${hFee.toLocaleString()} F</span></div>` : ''}
         ${iFee ? `<div style="display:flex;justify-content:space-between;padding:6px"><span>🛡️ Assurance</span><span>${iFee.toLocaleString()} F</span></div>` : ''}
@@ -1308,7 +1301,7 @@ window.initNewParcel = async function() {
     const routes = Cache.routes.filter(r=>r.company_id===currentUser.company_id);
     
     if(routes.length === 0) {
-        alert('️ Aucune destination configurée ! Allez dans Paramètres pour ajouter des routes.');
+        alert('⚠️ Aucune destination configurée ! Allez dans Paramètres pour ajouter des routes.');
         document.getElementById('destCity').innerHTML = '<option value="">-- Aucune destination --</option>';
     } else {
         document.getElementById('destCity').innerHTML = '<option value="">-- Choisir --</option>'+routes.map(r=>{
@@ -1355,7 +1348,7 @@ window.submitParcel = async function() {
     if(!desc) { alert('Description requise'); return; }
     if(!weight||weight<=0) { alert('Poids valide'); return; }
     if(!cityId) { alert('Ville requise'); return; }
-    if(!currentParcelPhoto) { alert(' Photo obligatoire!'); return; }
+    if(!currentParcelPhoto) { alert('📸 Photo obligatoire!'); return; }
     
     const count = Cache.parcels.filter(p=>p.company_id===currentUser.company_id).length;
     const tracking = `HMiG-${new Date().getFullYear()}-${String(count+1).padStart(6,'0')}`;
@@ -1391,11 +1384,16 @@ window.submitParcel = async function() {
         created_by: currentUser.id, created_at: new Date().toISOString()
     };
     
-    await addDoc(collection(db,'parcels'), parcel);
-    await refreshCache();
-    alert('✅ Colis créé! Code: '+code);
-    currentRecuParcel = parcel;
-    showRecuModalTemp(parcel);
+    try {
+        await addDoc(collection(db,'parcels'), parcel);
+        await refreshCache(true);
+        alert('✅ Colis créé! Code: '+code);
+        currentRecuParcel = parcel;
+        showRecuModalTemp(parcel);
+    } catch(e) {
+        console.error('Erreur création colis:', e);
+        alert('❌ Erreur: ' + e.message);
+    }
 };
 
 function showRecuModalTemp(parcel) {
@@ -1742,7 +1740,7 @@ window.loadTransactions = async function() {
         <div class="stat-card"><div class="label">Transactions</div><div class="value">${parcels.length}</div></div>
         <div class="stat-card" style="background:var(--success);color:white"><div class="label">Total</div><div class="value">${roundPrice(total).toLocaleString()} F</div></div>
         <div class="stat-card"><div class="label">💵 Espèces</div><div class="value">${roundPrice(cash).toLocaleString()} F</div></div>
-        <div class="stat-card"><div class="label">📱 Mobile</div><div class="value">${roundPrice(mobile).toLocaleString()} F</div></div>
+        <div class="stat-card"><div class="label"> Mobile</div><div class="value">${roundPrice(mobile).toLocaleString()} F</div></div>
     `;
     
     let table = `<table><thead><tr><th>N°</th><th>Date</th><th>Expéditeur</th><th>Destination</th><th>Total</th><th>Paiement</th><th>Photo</th></tr></thead><tbody>`;
@@ -1754,7 +1752,7 @@ window.loadTransactions = async function() {
             <td>${p.sender_name}</td>
             <td>${dest?.name||'?'}</td>
             <td><strong>${roundPrice(p.total_price).toLocaleString()} F</strong></td>
-            <td>${p.payment_method==='cash'?'💵':''}</td>
+            <td>${p.payment_method==='cash'?'💵':'📱'}</td>
             <td>${p.photo?'<button class="btn btn-sm btn-info" onclick="showPhoto(\''+p.id+'\')">👁️ Voir</button>':'-'}</td>
         </tr>`;
     });
@@ -1778,7 +1776,7 @@ window.setTransactionPeriod = function(p,btn) { transactionPeriod=p; document.qu
 
 window.showTracking = function() {
     document.getElementById('trackInput').value = '';
-    document.getElementById('trackResult').innerHTML = '<div style="background:white;padding:30px;border-radius:12px;text-align:center"><div style="font-size:64px">🔍</div><h3>Suivre un colis</h3><p style="color:var(--gray);margin:12px 0">Entrez le numéro</p><div style="display:flex;gap:10px;max-width:500px;margin:0 auto"><input type="text" id="trackInputMain" placeholder="Ex: HMiG-2026-000001" style="flex:1;padding:14px;border:2px solid #e0e0e0;border-radius:10px"><button class="btn btn-primary" onclick="trackSpecificParcel()" style="width:auto">🔍</button></div></div>';
+    document.getElementById('trackResult').innerHTML = '<div style="background:white;padding:30px;border-radius:12px;text-align:center"><div style="font-size:64px"></div><h3>Suivre un colis</h3><p style="color:var(--gray);margin:12px 0">Entrez le numéro</p><div style="display:flex;gap:10px;max-width:500px;margin:0 auto"><input type="text" id="trackInputMain" placeholder="Ex: HMiG-2026-000001" style="flex:1;padding:14px;border:2px solid #e0e0e0;border-radius:10px"><button class="btn btn-primary" onclick="trackSpecificParcel()" style="width:auto">🔍</button></div></div>';
 };
 window.trackSpecificParcel = async function() {
     const num = document.getElementById('trackInputMain').value.trim();
@@ -1787,13 +1785,13 @@ window.trackSpecificParcel = async function() {
     await refreshCache();
     const p = Cache.parcels.find(x=>x.tracking_number===num);
     const el = document.getElementById('trackResult');
-    if(!p) { el.innerHTML='<p style="color:#e74c3c;text-align:center"> Non trouvé</p>'; return; }
+    if(!p) { el.innerHTML='<p style="color:#e74c3c;text-align:center">❌ Non trouvé</p>'; return; }
     const origin = Cache.cities.find(c=>c.id===p.origin_city_id);
     const dest = Cache.cities.find(c=>c.id===p.destination_city_id);
-    let html = `<div style="background:white;padding:20px;border-radius:12px;margin-top:16px"><h3> ${p.tracking_number}</h3><p><strong>Trajet:</strong> ${origin?.name||'?'} -> ${dest?.name||'?'}</p><p><strong>Statut:</strong> ${p.status}</p>`;
+    let html = `<div style="background:white;padding:20px;border-radius:12px;margin-top:16px"><h3>📦 ${p.tracking_number}</h3><p><strong>Trajet:</strong> ${origin?.name||'?'} -> ${dest?.name||'?'}</p><p><strong>Statut:</strong> ${p.status}</p>`;
     if(p.trajet) {
         html += '<div class="trajet-timeline" style="margin-top:20px"><h4>🗺️ Historique</h4>';
-        const icons = {created:'📝',paid:'💰',loaded:'🚌',in_transit:'🚚',arrived:'',delivered:'✅'};
+        const icons = {created:'📝',paid:'💰',loaded:'🚌',in_transit:'🚚',arrived:'📍',delivered:'✅'};
         p.trajet.forEach((step,i)=>{ html += `<div class="trajet-step ${i===p.trajet.length-1?'current':'done'}"><div class="trajet-icon">${icons[step.status]||'📦'}</div><div class="trajet-content"><div class="trajet-title">${step.label}</div><div class="trajet-subtitle">📍 ${step.location}</div><div class="trajet-date">${new Date(step.date).toLocaleString('fr-FR')}</div></div></div>`; });
         html += '</div>';
     }
@@ -1834,9 +1832,37 @@ window.confirmReception = async function() {
     if(!p.trajet) p.trajet = [];
     p.trajet.push({status:'delivered',label:'Livré et confirmé',location:'Confirmé par destinataire',date:new Date().toISOString()});
     await setDoc(doc(db,'parcels',p.id),p);
-    await refreshCache();
+    await refreshCache(true);
     el.innerHTML = `<div style="background:#e8f5e9;color:#2e7d32;padding:20px;border-radius:12px;text-align:center">✅ Confirmé!<br>N°: ${p.tracking_number}</div>`;
     document.getElementById('confirmationCodeInput').value = '';
+};
+
+window.loadParcelsList = async function() {
+    await refreshCache();
+    const container = document.getElementById('parcelsListContainer');
+    let parcels = Cache.parcels.filter(p=>p.company_id===currentUser.company_id);
+    const search = document.getElementById('searchParcels').value.toLowerCase();
+    if(search) parcels = parcels.filter(p=>p.tracking_number.toLowerCase().includes(search)||p.sender_name.toLowerCase().includes(search));
+    const status = document.getElementById('filterStatus').value;
+    if(status) parcels = parcels.filter(p=>p.status===status);
+    if(currentFilter==='today') { const today=new Date().toISOString().split('T')[0]; parcels=parcels.filter(p=>p.created_at?.startsWith(today)); }
+    else if(currentFilter==='week') { const week=new Date(Date.now()-7*86400000); parcels=parcels.filter(p=>new Date(p.created_at)>=week); }
+    parcels.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+    if(!parcels.length) { container.innerHTML='<div class="empty-state"><div style="font-size:48px">📦</div><p>Aucun colis</p></div>'; return; }
+    container.innerHTML = parcels.map(p=>{
+        const dest = Cache.cities.find(c=>c.id===p.destination_city_id);
+        return `<div class="user-card" onclick="showParcelActions('${p.id}')"><div class="user-info-block"><div style="font-weight:700">${p.tracking_number} ${p.confirmed_by_recipient?'<span style="background:#27ae60;color:white;padding:2px 6px;border-radius:8px;font-size:10px">OK</span>':''}</div><div style="font-size:12px;color:var(--gray);margin-top:4px">${p.sender_name} -> ${p.recipient_name}</div><div style="font-size:12px;color:var(--gray);margin-top:2px">${dest?.name||'?'} - ${p.weight_kg}kg - ${p.status}</div></div><div style="text-align:right"><div style="font-weight:700;color:var(--primary)">${roundPrice(p.total_price).toLocaleString()} F</div></div></div>`;
+    }).join('');
+};
+window.setFilter = function(f) { currentFilter=f; document.querySelectorAll('.filter-tag').forEach(t=>t.classList.remove('active')); event.target.classList.add('active'); loadParcelsList(); };
+window.showParcelActions = function(id) {
+    const p = Cache.parcels.find(x=>x.id===id);
+    if(!p) return;
+    currentRecuParcel = p;
+    showRecuModalTemp(p);
+};
+window.filterParcels = function() {
+    loadParcelsList();
 };
 
 window.loadBordereaux = async function() { await refreshCache(); document.getElementById('bordereauxList').innerHTML = '<div class="empty-state"><p>Fonctionnalité bordereaux disponible</p></div>'; };
