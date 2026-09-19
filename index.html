@@ -93,6 +93,10 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(30,58,95,0.3);
 }
+.login-box button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
 .login-box .btn-outline { 
     background: transparent; 
     border: 2px solid var(--primary); 
@@ -246,6 +250,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
     transition: all 0.2s;
 }
 .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 .btn-primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; }
 .btn-success { background: linear-gradient(135deg, var(--success) 0%, #229954 100%); color: white; }
 .btn-warning { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); color: var(--primary); }
@@ -606,14 +611,14 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
             <div class="form-group"><label>Ville destination *</label><select id="destCity" onchange="onDestCityChange()"><option value="">-- Choisir --</option></select></div>
             <div class="form-group"><label>Agence</label><select id="destAgency"></select></div>
             <div class="form-group"><label>Description *</label><input id="description"></div>
-            <div class="form-group"><label>📸 Photo *</label><div class="photo-zone" onclick="document.getElementById('parcelPhoto').click()"><div class="icon">📷</div><p id="photoLabel">Cliquez pour photo</p><input type="file" id="parcelPhoto" accept="image/*" capture="environment" style="display:none" onchange="previewParcelPhoto(this)"><img id="photoPreview" class="photo-preview hidden"></div></div>
+            <div class="form-group"><label> Photo *</label><div class="photo-zone" onclick="document.getElementById('parcelPhoto').click()"><div class="icon">📷</div><p id="photoLabel">Cliquez pour photo</p><input type="file" id="parcelPhoto" accept="image/*" capture="environment" style="display:none" onchange="previewParcelPhoto(this)"><img id="photoPreview" class="photo-preview hidden"></div></div>
             <div class="form-group"><label>Poids (kg) *</label><input type="number" id="weightKg" step="0.1" oninput="calcPrice()"></div>
             <div class="form-group"><label>Valeur (FCFA) *</label><input type="number" id="declaredValue" value="0" oninput="calcPrice()"></div>
             <div class="form-group"><label><input type="checkbox" id="isInsured" onchange="calcPrice()"> 🛡️ Assurance</label></div>
             <div class="form-group"><label><input type="checkbox" id="isCustoms" onchange="calcPrice()"> 🛃 Douane</label></div>
             <div id="priceSummary" class="simulator-box"><p style="text-align:center;color:var(--gray)">Entrez poids et valeur</p></div>
-            <div class="form-group" style="margin-top:14px;"><label>Paiement</label><div style="display:flex;gap:10px;"><label style="flex:1;padding:13px;border:2px solid #e0e0e0;border-radius:10px;text-align:center;"><input type="radio" name="payment" value="cash" checked> 💵 Espèces</label><label style="flex:1;padding:13px;border:2px solid #e0e0e0;border-radius:10px;text-align:center;"><input type="radio" name="payment" value="mobile"> 📱 Mobile</label></div></div>
-            <button class="btn btn-success" onclick="submitParcel()" style="margin-top:10px;">✅ Valider l'envoi</button>
+            <div class="form-group" style="margin-top:14px;"><label>Paiement</label><div style="display:flex;gap:10px;"><label style="flex:1;padding:13px;border:2px solid #e0e0e0;border-radius:10px;text-align:center;"><input type="radio" name="payment" value="cash" checked> 💵 Espèces</label><label style="flex:1;padding:13px;border:2px solid #e0e0e0;border-radius:10px;text-align:center;"><input type="radio" name="payment" value="mobile">  Mobile</label></div></div>
+            <button class="btn btn-success" onclick="submitParcel()" id="btnSubmitParcel" style="margin-top:10px;">✅ Valider l'envoi</button>
         </div>
 
         <div class="section" id="sec-parcelsList">
@@ -624,7 +629,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
         </div>
 
         <div class="section" id="sec-bordereaux">
-            <h3 class="section-title">🚌 Bordereaux</h3>
+            <h3 class="section-title"> Bordereaux</h3>
             <button class="btn btn-primary" onclick="showSection('createBordereau')" style="margin-bottom:14px;">➕ Créer</button>
             <div id="bordereauxList"></div>
         </div>
@@ -636,7 +641,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
             <div class="form-group"><label>Chauffeur *</label><input id="bordDriver"></div>
             <div class="form-group"><label>Plaque *</label><input id="bordPlate"></div>
             <div class="form-group"><label>Date</label><input type="date" id="bordDate"></div>
-            <h4 style="margin:18px 0 10px; color:var(--primary);"> Colis</h4>
+            <h4 style="margin:18px 0 10px; color:var(--primary);">📦 Colis</h4>
             <div id="parcelsToLoad"><p style="text-align:center;color:var(--gray);padding:18px;">Sélectionnez destination</p></div>
             <div style="background:#f8f9fa;padding:14px;border-radius:10px;margin-top:14px;"><div style="display:flex;justify-content:space-between;"><span>Colis:</span><strong id="selectedCount">0</strong></div><div style="display:flex;justify-content:space-between;"><span>Poids:</span><strong id="totalWeight">0 kg</strong></div></div>
             <button class="btn btn-success" onclick="saveBordereau()" style="margin-top:14px;">✅ Créer & PDF</button>
@@ -654,7 +659,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
         </div>
 
         <div class="section" id="sec-transactions">
-            <h3 class="section-title">💳 Transactions</h3>
+            <h3 class="section-title"> Transactions</h3>
             <div style="display:flex;gap:8px;margin-bottom:14px;">
                 <button class="btn btn-sm btn-primary period-btn active" onclick="setTransactionPeriod('today',this)">Aujourd'hui</button>
                 <button class="btn btn-sm btn-outline period-btn" onclick="setTransactionPeriod('week',this)">Semaine</button>
@@ -679,7 +684,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
         <div class="section" id="sec-settings">
             <h3 class="section-title">⚙️ Paramètres de ma compagnie</h3>
             <div class="settings-card">
-                <h3>️ Destinations (Routes)</h3>
+                <h3>🗺️ Destinations (Routes)</h3>
                 <div id="routesList"></div>
                 <button class="btn btn-outline btn-sm" onclick="addRouteRow()">+ Ajouter une route</button>
                 <button class="btn btn-success btn-sm" onclick="saveRoutes()" style="margin-top:8px;">💾 Enregistrer</button>
@@ -699,7 +704,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
             <div class="settings-card">
                 <h3>💰 Frais & Pourcentages</h3>
                 <div id="feeSettingsList"></div>
-                <button class="btn btn-success btn-sm" onclick="saveFeeSettings()">💾 Enregistrer</button>
+                <button class="btn btn-success btn-sm" onclick="saveFeeSettings()"> Enregistrer</button>
             </div>
         </div>
 
@@ -718,12 +723,13 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 <div class="modal" id="smsModal"><div class="modal-content"><h3 style="margin-bottom:14px;">📱 SMS</h3><div id="smsContent"></div><div style="display:flex;gap:8px;margin-top:18px;"><button class="btn btn-primary" onclick="simulateSendSMS()">Envoyer</button><button class="btn btn-outline" onclick="closeSmsModal()">Fermer</button></div></div></div>
 <div class="modal" id="ticketModal"><div class="modal-content"><h3 style="margin-bottom:14px;">🖨️ Ticket</h3><div id="ticketContent"></div><div style="display:flex;gap:8px;margin-top:18px;"><button class="btn btn-success" onclick="printTicket()">Imprimer</button><button class="btn btn-outline" onclick="closeTicketModal()">Fermer</button></div></div></div>
 <div class="modal" id="addCompanyModal"><div class="modal-content"><h3 style="margin-bottom:14px;">🏢 Nouvelle compagnie</h3><div class="form-group"><label>Nom</label><input id="newCompanyName"></div><div class="form-group"><label>Pays</label><input id="newCompanyCountry"></div><div class="form-group"><label>Téléphone de contact</label><input id="newCompanyPhone" placeholder="Ex: +228 70 00 00 00"></div><div class="form-group"><label>Plan</label><select id="newCompanyPlan"><option value="basic">Basic - 50 000 FCFA/mois</option><option value="pro">Pro - 100 000 FCFA/mois</option><option value="enterprise">Enterprise - 200 000 FCFA/mois</option></select></div><div style="display:flex;gap:8px;margin-top:18px;"><button class="btn btn-outline" onclick="closeAddCompanyModal()">Annuler</button><button class="btn btn-primary" onclick="saveCompany()">Enregistrer</button></div></div></div>
-<div class="modal" id="addUserModal"><div class="modal-content"><h3 style="margin-bottom:14px;">👤 Utilisateur</h3><div class="form-group"><label>Prénom</label><input id="newUserFirstName"></div><div class="form-group"><label>Nom</label><input id="newUserLastName"></div><div class="form-group"><label>Téléphone</label><input id="newUserPhone"></div><div class="form-group"><label>Mot de passe</label><input id="newUserPassword"></div><div class="form-group"><label>Rôle</label><select id="newUserRole"><option value="admin">Admin</option><option value="clerk">Guichetier</option></select></div><div style="display:flex;gap:8px;margin-top:18px;"><button class="btn btn-outline" onclick="closeAddUserModal()">Annuler</button><button class="btn btn-primary" onclick="saveUser()">OK</button></div></div></div>
+<div class="modal" id="addUserModal"><div class="modal-content"><h3 style="margin-bottom:14px;"> Utilisateur</h3><div class="form-group"><label>Prénom</label><input id="newUserFirstName"></div><div class="form-group"><label>Nom</label><input id="newUserLastName"></div><div class="form-group"><label>Téléphone</label><input id="newUserPhone"></div><div class="form-group"><label>Mot de passe</label><input id="newUserPassword"></div><div class="form-group"><label>Rôle</label><select id="newUserRole"><option value="admin">Admin</option><option value="clerk">Guichetier</option></select></div><div style="display:flex;gap:8px;margin-top:18px;"><button class="btn btn-outline" onclick="closeAddUserModal()">Annuler</button><button class="btn btn-primary" onclick="saveUser()">OK</button></div></div></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, collection, getDocs, addDoc, doc, setDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getStorage, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCxKBtfZOra84es1toOWkkH3k8xIMjxs38",
@@ -738,6 +744,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 let currentUser = null;
 let Cache = { companies: [], users: [], parcels: [], bordereaux: [], cities: [], agencies: [], routes: [], weight_tiers: [], distance_tiers: [], fee_settings: [] };
@@ -755,7 +762,6 @@ const genCode = () => { let c=''; for(let i=0;i<6;i++) c+='ABCDEFGHJKLMNPQRSTUVW
 const getPlanLabel = p => p === 'basic' ? 'Basic (50 000 F/mois)' : p === 'pro' ? 'Pro (100 000 F/mois)' : 'Enterprise (200 000 F/mois)';
 const getPlanClass = p => p === 'basic' ? 'plan-basic' : p === 'pro' ? 'plan-pro' : 'plan-enterprise';
 
-// Persistance de session
 window.addEventListener('load', () => {
     const savedSession = localStorage.getItem('hmi_session');
     if(savedSession) {
@@ -800,10 +806,10 @@ async function loadCompaniesInDropdown() {
     await refreshCache(true);
     const select = document.getElementById('loginCompany');
     select.innerHTML = '<option value="">-- Sélectionner --</option>';
-    select.innerHTML += '<option value="super">👑 SUPER ADMIN</option>';
+    select.innerHTML += '<option value="super"> SUPER ADMIN</option>';
     Cache.companies.forEach(c => {
         if(c.status === 'active') {
-            select.innerHTML += `<option value="${c.id}"> ${c.name} (${c.country})</option>`;
+            select.innerHTML += `<option value="${c.id}">🏢 ${c.name} (${c.country})</option>`;
         }
     });
 }
@@ -868,7 +874,7 @@ function buildNav() {
     if(currentUser.isSuperAdmin) {
         nav.innerHTML = `<div class="bottom-nav-item active" onclick="showSection('superDashboard')"><div class="icon">👑</div>Global</div><div class="bottom-nav-item" onclick="showSection('companies')"><div class="icon">🏢</div>Compagnies</div>`;
     } else {
-        nav.innerHTML = `<div class="bottom-nav-item active" onclick="showSection('dashboard')"><div class="icon">🏠</div>Accueil</div><div class="bottom-nav-item" onclick="showSection('newParcel')"><div class="icon">📦</div>Envoi</div><div class="bottom-nav-item" onclick="showSection('parcelsList')"><div class="icon">📋</div>Colis</div><div class="bottom-nav-item" onclick="showSection('transactions')"><div class="icon">💰</div>Finance</div><div class="bottom-nav-item" onclick="showSection('settings')"><div class="icon">⚙️</div>Param.</div>`;
+        nav.innerHTML = `<div class="bottom-nav-item active" onclick="showSection('dashboard')"><div class="icon"></div>Accueil</div><div class="bottom-nav-item" onclick="showSection('newParcel')"><div class="icon">📦</div>Envoi</div><div class="bottom-nav-item" onclick="showSection('parcelsList')"><div class="icon">📋</div>Colis</div><div class="bottom-nav-item" onclick="showSection('transactions')"><div class="icon">💰</div>Finance</div><div class="bottom-nav-item" onclick="showSection('settings')"><div class="icon">⚙️</div>Param.</div>`;
     }
 }
 
@@ -915,7 +921,7 @@ async function loadSuperDashboard() {
         <div class="stat-card"><div class="label">🏢 Compagnies actives</div><div class="value">${Cache.companies.filter(c=>c.status==='active').length}/${Cache.companies.length}</div></div>
         <div class="stat-card"><div class="label">📦 Total Colis</div><div class="value">${allParcels.length}</div><div class="sub">Auj: ${todayP.length}</div></div>
         <div class="stat-card" style="background:linear-gradient(135deg, var(--accent) 0%, #f1c40f 100%);color:var(--primary)"><div class="label">💰 CA Global (colis)</div><div class="value">${roundPrice(totalRevenue).toLocaleString()} F</div></div>
-        <div class="stat-card" style="background:linear-gradient(135deg, var(--success) 0%, #229954 100%);color:white"><div class="label"> CA Forfaits/mois</div><div class="value">${totalPlanRevenue.toLocaleString()} F</div></div>
+        <div class="stat-card" style="background:linear-gradient(135deg, var(--success) 0%, #229954 100%);color:white"><div class="label">💵 CA Forfaits/mois</div><div class="value">${totalPlanRevenue.toLocaleString()} F</div></div>
     `;
 
     let detailsHTML = '';
@@ -1301,7 +1307,7 @@ window.initNewParcel = async function() {
     const routes = Cache.routes.filter(r=>r.company_id===currentUser.company_id);
     
     if(routes.length === 0) {
-        alert('⚠️ Aucune destination configurée ! Allez dans Paramètres pour ajouter des routes.');
+        alert('️ Aucune destination configurée ! Allez dans Paramètres pour ajouter des routes.');
         document.getElementById('destCity').innerHTML = '<option value="">-- Aucune destination --</option>';
     } else {
         document.getElementById('destCity').innerHTML = '<option value="">-- Choisir --</option>'+routes.map(r=>{
@@ -1328,8 +1334,22 @@ window.onDestCityChange = function() {
 
 window.previewParcelPhoto = function(input) {
     if(input.files&&input.files[0]) {
+        const file = input.files[0];
+        
+        // Vérifier la taille (max 5 Mo)
+        if(file.size > 5 * 1024 * 1024) {
+            alert('⚠️ La photo est trop volumineuse (max 5 Mo). Veuillez compresser ou choisir une autre photo.');
+            input.value = '';
+            return;
+        }
+        
         const reader = new FileReader();
-        reader.onload = e => { currentParcelPhoto = e.target.result; document.getElementById('photoPreview').src=e.target.result; document.getElementById('photoPreview').classList.remove('hidden'); document.getElementById('photoLabel').textContent='✅ Photo prise'; };
+        reader.onload = e => { 
+            currentParcelPhoto = e.target.result; 
+            document.getElementById('photoPreview').src = e.target.result; 
+            document.getElementById('photoPreview').classList.remove('hidden'); 
+            document.getElementById('photoLabel').textContent = '✅ Photo prête'; 
+        };
         reader.readAsDataURL(input.files[0]);
     }
 };
@@ -1348,51 +1368,82 @@ window.submitParcel = async function() {
     if(!desc) { alert('Description requise'); return; }
     if(!weight||weight<=0) { alert('Poids valide'); return; }
     if(!cityId) { alert('Ville requise'); return; }
-    if(!currentParcelPhoto) { alert('📸 Photo obligatoire!'); return; }
+    if(!currentParcelPhoto) { alert(' Photo obligatoire!'); return; }
     
-    const count = Cache.parcels.filter(p=>p.company_id===currentUser.company_id).length;
-    const tracking = `HMiG-${new Date().getFullYear()}-${String(count+1).padStart(6,'0')}`;
-    const code = genCode();
-    const route = Cache.routes.find(r=>r.company_id===currentUser.company_id&&r.to_city_id==cityId);
-    const dist = route?.distance_km||0;
-    
-    const weightTier = Cache.weight_tiers.find(t=>t.company_id===currentUser.company_id&&weight>=t.min&&weight<=t.max);
-    const wPrice = roundPrice(weightTier?.price || 0);
-    
-    const distanceTier = Cache.distance_tiers.find(d=>d.company_id===currentUser.company_id&&dist>=d.min&&dist<=d.max);
-    const pricePerKm = distanceTier?.price_per_km || 0;
-    const dPrice = roundPrice(dist * pricePerKm);
-    
-    const fees = Cache.fee_settings.find(f=>f.company_id===currentUser.company_id)||{value_percent:0,customs_percent:0,insurance_percent:0};
-    const hFee = roundPrice(value*(fees.value_percent/100));
-    const iFee = document.getElementById('isInsured').checked ? roundPrice(value*(fees.insurance_percent/100)) : 0;
-    const cFee = document.getElementById('isCustoms').checked ? roundPrice(value*(fees.customs_percent/100)) : 0;
-    const total = wPrice + dPrice + hFee + iFee + cFee;
-    
-    const origin = Cache.cities.find(c=>{const a=Cache.agencies.find(x=>x.company_id===currentUser.company_id);return a&&c.id===a.city_id;});
-    
-    const parcel = {
-        company_id: currentUser.company_id, tracking_number: tracking,
-        sender_name: sender, sender_phone: sPhone, recipient_name: recipient, recipient_phone: rPhone,
-        origin_city_id: origin?.id||'1', destination_city_id: cityId,
-        distance_km: dist, description: desc, weight_kg: weight, declared_value: value,
-        is_insured: document.getElementById('isInsured').checked, is_customs: document.getElementById('isCustoms').checked,
-        weight_price: wPrice, distance_price: dPrice, handling_fee: hFee, insurance_fee: iFee, customs_fee: cFee,
-        total_price: total, payment_method: document.querySelector('input[name="payment"]:checked').value,
-        photo: currentParcelPhoto, status: 'paid', confirmation_code: code, confirmed_by_recipient: false,
-        trajet: [{status:'created',label:'Colis créé',location:origin?.name||'Agence',date:new Date().toISOString()},{status:'paid',label:'Paiement reçu',location:origin?.name||'Agence',date:new Date().toISOString()}],
-        created_by: currentUser.id, created_at: new Date().toISOString()
-    };
+    const btn = document.getElementById('btnSubmitParcel');
+    btn.textContent = '⏳ Enregistrement...';
+    btn.disabled = true;
     
     try {
-        await addDoc(collection(db,'parcels'), parcel);
+        const count = Cache.parcels.filter(p=>p.company_id===currentUser.company_id).length;
+        const tracking = `HMiG-${new Date().getFullYear()}-${String(count+1).padStart(6,'0')}`;
+        const code = genCode();
+        const route = Cache.routes.find(r=>r.company_id===currentUser.company_id&&r.to_city_id==cityId);
+        const dist = route?.distance_km||0;
+        
+        const weightTier = Cache.weight_tiers.find(t=>t.company_id===currentUser.company_id&&weight>=t.min&&weight<=t.max);
+        const wPrice = roundPrice(weightTier?.price || 0);
+        
+        const distanceTier = Cache.distance_tiers.find(d=>d.company_id===currentUser.company_id&&dist>=d.min&&dist<=d.max);
+        const pricePerKm = distanceTier?.price_per_km || 0;
+        const dPrice = roundPrice(dist * pricePerKm);
+        
+        const fees = Cache.fee_settings.find(f=>f.company_id===currentUser.company_id)||{value_percent:0,customs_percent:0,insurance_percent:0};
+        const hFee = roundPrice(value*(fees.value_percent/100));
+        const iFee = document.getElementById('isInsured').checked ? roundPrice(value*(fees.insurance_percent/100)) : 0;
+        const cFee = document.getElementById('isCustoms').checked ? roundPrice(value*(fees.customs_percent/100)) : 0;
+        const total = wPrice + dPrice + hFee + iFee + cFee;
+        
+        const origin = Cache.cities.find(c=>{const a=Cache.agencies.find(x=>x.company_id===currentUser.company_id);return a&&c.id===a.city_id;});
+        
+        const parcel = {
+            company_id: currentUser.company_id, 
+            tracking_number: tracking,
+            sender_name: sender, sender_phone: sPhone, 
+            recipient_name: recipient, recipient_phone: rPhone,
+            origin_city_id: origin?.id||'1', 
+            destination_city_id: cityId,
+            distance_km: dist, description: desc, 
+            weight_kg: weight, declared_value: value,
+            is_insured: document.getElementById('isInsured').checked, 
+            is_customs: document.getElementById('isCustoms').checked,
+            weight_price: wPrice, distance_price: dPrice, 
+            handling_fee: hFee, insurance_fee: iFee, customs_fee: cFee,
+            total_price: total, 
+            payment_method: document.querySelector('input[name="payment"]:checked').value,
+            photo_url: '',
+            status: 'paid', 
+            confirmation_code: code, 
+            confirmed_by_recipient: false,
+            trajet: [{status:'created',label:'Colis créé',location:origin?.name||'Agence',date:new Date().toISOString()},{status:'paid',label:'Paiement reçu',location:origin?.name||'Agence',date:new Date().toISOString()}],
+            created_by: currentUser.id, 
+            created_at: new Date().toISOString()
+        };
+        
+        btn.textContent = '📤 Upload photo...';
+        
+        const docRef = await addDoc(collection(db,'parcels'), parcel);
+        
+        if(currentParcelPhoto) {
+            const photoRef = ref(storage, `parcels/${docRef.id}/photo.jpg`);
+            await uploadString(photoRef, currentParcelPhoto, 'data_url');
+            const photoURL = await getDownloadURL(photoRef);
+            await updateDoc(doc(db, 'parcels', docRef.id), { photo_url: photoURL });
+            parcel.photo_url = photoURL;
+        }
+        
         await refreshCache(true);
         alert('✅ Colis créé! Code: '+code);
+        parcel.id = docRef.id;
         currentRecuParcel = parcel;
         showRecuModalTemp(parcel);
+        
     } catch(e) {
         console.error('Erreur création colis:', e);
         alert('❌ Erreur: ' + e.message);
+    } finally {
+        btn.textContent = '✅ Valider l\'envoi';
+        btn.disabled = false;
     }
 };
 
@@ -1677,7 +1728,7 @@ window.loadDouane = async function() {
     
     document.getElementById('douaneStats').innerHTML = `
         <div class="stat-card"><div class="label">📦 Colis avec douane</div><div class="value">${totalColis}</div></div>
-        <div class="stat-card" style="background:linear-gradient(135deg, var(--accent) 0%, #e67e22 100%);color:white"><div class="label"> Total Douane collecté</div><div class="value">${roundPrice(totalDouane).toLocaleString()} F</div></div>
+        <div class="stat-card" style="background:linear-gradient(135deg, var(--accent) 0%, #e67e22 100%);color:white"><div class="label">💰 Total Douane collecté</div><div class="value">${roundPrice(totalDouane).toLocaleString()} F</div></div>
         <div class="stat-card"><div class="label">📊 Moyenne par colis</div><div class="value">${roundPrice(avgDouane).toLocaleString()} F</div></div>
         <div class="stat-card" style="background:linear-gradient(135deg, var(--success) 0%, #229954 100%);color:white"><div class="label">💵 Total général</div><div class="value">${roundPrice(totalGeneral).toLocaleString()} F</div></div>
     `;
@@ -1739,8 +1790,8 @@ window.loadTransactions = async function() {
     document.getElementById('transactionStats').innerHTML = `
         <div class="stat-card"><div class="label">Transactions</div><div class="value">${parcels.length}</div></div>
         <div class="stat-card" style="background:var(--success);color:white"><div class="label">Total</div><div class="value">${roundPrice(total).toLocaleString()} F</div></div>
-        <div class="stat-card"><div class="label">💵 Espèces</div><div class="value">${roundPrice(cash).toLocaleString()} F</div></div>
-        <div class="stat-card"><div class="label"> Mobile</div><div class="value">${roundPrice(mobile).toLocaleString()} F</div></div>
+        <div class="stat-card"><div class="label"> Espèces</div><div class="value">${roundPrice(cash).toLocaleString()} F</div></div>
+        <div class="stat-card"><div class="label">📱 Mobile</div><div class="value">${roundPrice(mobile).toLocaleString()} F</div></div>
     `;
     
     let table = `<table><thead><tr><th>N°</th><th>Date</th><th>Expéditeur</th><th>Destination</th><th>Total</th><th>Paiement</th><th>Photo</th></tr></thead><tbody>`;
@@ -1753,7 +1804,7 @@ window.loadTransactions = async function() {
             <td>${dest?.name||'?'}</td>
             <td><strong>${roundPrice(p.total_price).toLocaleString()} F</strong></td>
             <td>${p.payment_method==='cash'?'💵':'📱'}</td>
-            <td>${p.photo?'<button class="btn btn-sm btn-info" onclick="showPhoto(\''+p.id+'\')">👁️ Voir</button>':'-'}</td>
+            <td>${p.photo_url?'<button class="btn btn-sm btn-info" onclick="showPhoto(\''+p.id+'\')">👁️ Voir</button>':'-'}</td>
         </tr>`;
     });
     table += `</tbody><tfoot><tr class="total-row">
@@ -1764,19 +1815,25 @@ window.loadTransactions = async function() {
     document.getElementById('transactionTable').innerHTML = parcels.length ? table : '<p style="text-align:center;padding:40px;color:var(--gray)">Aucune transaction</p>';
 };
 
-window.showPhoto = function(id) {
+window.showPhoto = async function(id) {
     const p = Cache.parcels.find(x=>x.id===id);
-    if(!p||!p.photo) return;
+    if(!p) return;
+    
+    let photoSrc = p.photo_url;
+    if(!photoSrc && p.photo) photoSrc = p.photo; // Fallback ancien format
+    
+    if(!photoSrc) { alert('Aucune photo disponible'); return; }
+    
     const modal = document.createElement('div');
     modal.className = 'photo-viewer';
-    modal.innerHTML = `<div class="photo-viewer-content"><h3 style="margin-bottom:12px">${p.tracking_number}</h3><img src="${p.photo}"><button onclick="this.closest('.photo-viewer').remove()" class="btn btn-outline" style="margin-top:12px;width:auto">Fermer</button></div>`;
+    modal.innerHTML = `<div class="photo-viewer-content"><h3 style="margin-bottom:12px">${p.tracking_number}</h3><img src="${photoSrc}"><button onclick="this.closest('.photo-viewer').remove()" class="btn btn-outline" style="margin-top:12px;width:auto">Fermer</button></div>`;
     document.body.appendChild(modal);
 };
 window.setTransactionPeriod = function(p,btn) { transactionPeriod=p; document.querySelectorAll('#sec-transactions .period-btn').forEach(b=>{b.classList.remove('btn-primary','active');b.classList.add('btn-outline')}); btn.classList.remove('btn-outline'); btn.classList.add('btn-primary','active'); loadTransactions(); };
 
 window.showTracking = function() {
     document.getElementById('trackInput').value = '';
-    document.getElementById('trackResult').innerHTML = '<div style="background:white;padding:30px;border-radius:12px;text-align:center"><div style="font-size:64px"></div><h3>Suivre un colis</h3><p style="color:var(--gray);margin:12px 0">Entrez le numéro</p><div style="display:flex;gap:10px;max-width:500px;margin:0 auto"><input type="text" id="trackInputMain" placeholder="Ex: HMiG-2026-000001" style="flex:1;padding:14px;border:2px solid #e0e0e0;border-radius:10px"><button class="btn btn-primary" onclick="trackSpecificParcel()" style="width:auto">🔍</button></div></div>';
+    document.getElementById('trackResult').innerHTML = '<div style="background:white;padding:30px;border-radius:12px;text-align:center"><div style="font-size:64px"></div><h3>Suivre un colis</h3><p style="color:var(--gray);margin:12px 0">Entrez le numéro</p><div style="display:flex;gap:10px;max-width:500px;margin:0 auto"><input type="text" id="trackInputMain" placeholder="Ex: HMiG-2026-000001" style="flex:1;padding:14px;border:2px solid #e0e0e0;border-radius:10px"><button class="btn btn-primary" onclick="trackSpecificParcel()" style="width:auto"></button></div></div>';
 };
 window.trackSpecificParcel = async function() {
     const num = document.getElementById('trackInputMain').value.trim();
@@ -1790,9 +1847,9 @@ window.trackSpecificParcel = async function() {
     const dest = Cache.cities.find(c=>c.id===p.destination_city_id);
     let html = `<div style="background:white;padding:20px;border-radius:12px;margin-top:16px"><h3>📦 ${p.tracking_number}</h3><p><strong>Trajet:</strong> ${origin?.name||'?'} -> ${dest?.name||'?'}</p><p><strong>Statut:</strong> ${p.status}</p>`;
     if(p.trajet) {
-        html += '<div class="trajet-timeline" style="margin-top:20px"><h4>🗺️ Historique</h4>';
-        const icons = {created:'📝',paid:'💰',loaded:'🚌',in_transit:'🚚',arrived:'📍',delivered:'✅'};
-        p.trajet.forEach((step,i)=>{ html += `<div class="trajet-step ${i===p.trajet.length-1?'current':'done'}"><div class="trajet-icon">${icons[step.status]||'📦'}</div><div class="trajet-content"><div class="trajet-title">${step.label}</div><div class="trajet-subtitle">📍 ${step.location}</div><div class="trajet-date">${new Date(step.date).toLocaleString('fr-FR')}</div></div></div>`; });
+        html += '<div class="trajet-timeline" style="margin-top:20px"><h4>️ Historique</h4>';
+        const icons = {created:'📝',paid:'',loaded:'🚌',in_transit:'',arrived:'📍',delivered:'✅'};
+        p.trajet.forEach((step,i)=>{ html += `<div class="trajet-step ${i===p.trajet.length-1?'current':'done'}"><div class="trajet-icon">${icons[step.status]||''}</div><div class="trajet-content"><div class="trajet-title">${step.label}</div><div class="trajet-subtitle"> ${step.location}</div><div class="trajet-date">${new Date(step.date).toLocaleString('fr-FR')}</div></div></div>`; });
         html += '</div>';
     }
     html += '</div>';
